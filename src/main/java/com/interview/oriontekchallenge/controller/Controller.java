@@ -2,47 +2,42 @@ package com.interview.oriontekchallenge.controller;
 
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
-public class Controller {
+import java.io.IOException;
+import java.net.URL;
+import java.util.Objects;
+import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+public class Controller implements Initializable {
 
     @FXML
     private FontAwesomeIconView btnClose;
 
     @FXML
-    private Button btnStudents;
+    private StackPane contentArea;
 
     @FXML
-    private Button btnTeachers;
+    private Button btnClientes;
 
     @FXML
-    private Button btnFees;
+    private Button btnDirecciones;
 
     @FXML
-    private Button btnUsers;
+    private GridPane pnClientes;
 
     @FXML
-    private Button btnSettings;
-
-    @FXML
-    private GridPane pnFees;
-
-    @FXML
-    private GridPane pnSettings;
-
-    @FXML
-    private GridPane pnStudents;
-
-    @FXML
-    private GridPane pnTeachers;
-
-    @FXML
-    private GridPane pnUsers;
+    private GridPane pnDirecciones;
 
     @FXML
     private Pane pnlStatus;
@@ -54,55 +49,55 @@ public class Controller {
     private Label lblStatusMini;
 
     @FXML
-    private TableView<?> tableView;
+    private TableView<?> tableViewDirecciones;
 
     @FXML
     private void handleClicks(javafx.event.ActionEvent event) {
-        if (event.getSource() == btnStudents) {
-            String text = "Students";
+        String destination = "";
+        if (event.getSource() == btnClientes) {
+            String text = "Clientes";
             lblStatusMini.setText("/home/" + text.toLowerCase());
             lblStatus.setText(text);
             pnlStatus.setBackground(new Background(new BackgroundFill(
                     Color.rgb(113, 86, 221), CornerRadii.EMPTY, Insets.EMPTY
             )));
-            pnStudents.toFront();
-        } else if (event.getSource() == btnTeachers) {
-            String text = "Teachers";
+            destination = "fxml/cliente.fxml";
+        } else if (event.getSource() == btnDirecciones) {
+            String text = "Direcciones";
             lblStatusMini.setText("/home/" + text.toLowerCase());
             lblStatus.setText(text);
             pnlStatus.setBackground(new Background(new BackgroundFill(
                     Color.rgb(43, 63, 99), CornerRadii.EMPTY, Insets.EMPTY
             )));
-            pnTeachers.toFront();
-        } else if (event.getSource() == btnFees){
-            String text = "Fees";
-            lblStatusMini.setText("/home/" + text.toLowerCase());
-            lblStatus.setText(text);
-            pnlStatus.setBackground(new Background(new BackgroundFill(
-                    Color.rgb(43, 99, 63), CornerRadii.EMPTY, Insets.EMPTY
-            )));
-            pnFees.toFront();
-        } else if (event.getSource() == btnUsers){
-            String text = "Users";
-            lblStatusMini.setText("/home/" + text.toLowerCase());
-            lblStatus.setText(text);
-            pnlStatus.setBackground(new Background(new BackgroundFill(
-                    Color.rgb(99, 43, 63), CornerRadii.EMPTY, Insets.EMPTY
-            )));
-            pnUsers.toFront();
-        } else if (event.getSource() == btnSettings){
-            String text = "Settings";
-            lblStatusMini.setText("/home/" + text.toLowerCase());
-            lblStatus.setText(text);
-            pnlStatus.setBackground(new Background(new BackgroundFill(
-                    Color.rgb(42, 28, 66), CornerRadii.EMPTY, Insets.EMPTY
-            )));
-            pnSettings.toFront();
+            destination = "fxml/direccion.fxml";
         }
+        loadOption(destination);
     }
 
     @FXML
-    private void handleClose(){
+    private void handleClose() {
         System.exit(0);
     }
+
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        loadOption("fxml/cliente.fxml");
+    }
+
+    /**
+     * @param name name of the desired resource
+     */
+    private void loadOption(String name) {
+        try {
+            Parent fxml = FXMLLoader.load(Objects.requireNonNull(
+                    com.interview.oriontekchallenge.Main.class.getResource(name)));
+            contentArea.getChildren().removeAll();
+            contentArea.getChildren().setAll(fxml);
+        } catch (IOException ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+
 }

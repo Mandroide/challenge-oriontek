@@ -11,7 +11,7 @@ import javafx.scene.layout.HBox;
 
 import java.util.EnumSet;
 
-public class RadioButtonCell<S,T extends Enum<T>> extends TableCell<S,T> {
+public class RadioButtonCell<S, T extends Enum<T>> extends TableCell<S, T> {
 
     private final EnumSet<T> enumeration;
 
@@ -20,12 +20,10 @@ public class RadioButtonCell<S,T extends Enum<T>> extends TableCell<S,T> {
     }
 
     @Override
-    protected void updateItem(T item, boolean empty)
-    {
+    protected void updateItem(T item, boolean empty) {
         super.updateItem(item, empty);
         setGraphic(null);
-        if (!empty)
-        {
+        if (!empty) {
             // gui setup
             HBox hb = new HBox(7);
             hb.setAlignment(Pos.CENTER);
