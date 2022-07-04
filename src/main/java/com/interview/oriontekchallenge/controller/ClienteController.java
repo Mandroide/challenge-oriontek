@@ -2,6 +2,10 @@ package com.interview.oriontekchallenge.controller;
 
 import com.interview.oriontekchallenge.Main;
 import com.interview.oriontekchallenge.beans.RadioButtonCell;
+import com.interview.oriontekchallenge.dao.ClienteDao;
+import com.interview.oriontekchallenge.dao.DireccionDao;
+import com.interview.oriontekchallenge.daoimpl.ClienteDaoImpl;
+import com.interview.oriontekchallenge.daoimpl.DireccionDaoImpl;
 import com.interview.oriontekchallenge.model.Cliente;
 import com.interview.oriontekchallenge.model.Estatus;
 import javafx.fxml.FXML;
@@ -22,7 +26,8 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class ClienteController implements Initializable {
-
+    private static final DireccionDao direccionDao_ = new DireccionDaoImpl();
+    private static final ClienteDao clienteDao_ = new ClienteDaoImpl(direccionDao_);
     @FXML
     private Button btnAgregarDireccion;
     @FXML
@@ -61,6 +66,7 @@ public class ClienteController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         initTabla();
+        tableView.setItems(clienteDao_.mostrar());
         tableView.getSelectionModel().selectedItemProperty()
                 .addListener((v, oldValue, newValue) -> {
                             if (newValue == null) {
@@ -71,6 +77,11 @@ public class ClienteController implements Initializable {
 
                         }
                 );
+    }
+
+    @FXML
+    private void buscar() {
+        tableView.setItems(clienteDao_.buscar(nombre.getText()));
     }
 
     private void clear() {
@@ -94,9 +105,10 @@ public class ClienteController implements Initializable {
     private void agregar() {
         if (haConfirmado()) {
             Cliente cliente = new Cliente(nombre.getText(), email.getText(), telefono.getText());
-            String context = cliente.toString();
+            String context = clienteDao_.insertar(cliente);
             Alert insercion = new Alert(Alert.AlertType.INFORMATION, context);
             insercion.show();
+            tableView.setItems(clienteDao_.mostrar());
             clear();
         }
 
@@ -131,9 +143,10 @@ public class ClienteController implements Initializable {
             cliente.setEstatus(Estatus.valueOf(newValue.getNewValue().toString().toUpperCase()));
         }
 
-        String context = cliente.toString();
+        String context = clienteDao_.actualizar(cliente);
         Alert insercion = new Alert(Alert.AlertType.INFORMATION, context);
         insercion.show();
+        tableView.setItems(clienteDao_.mostrar());
 
     }
 

@@ -24,6 +24,7 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class DireccionController implements Initializable {
+    private static final DireccionDao direccionDao_ = new DireccionDaoImpl();
     @FXML
     private TableView<Direccion> tableView;
     @FXML
@@ -64,6 +65,7 @@ public class DireccionController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         llenarPaises();
         initTabla();
+        tableView.setItems(direccionDao_.mostrar());
         tableView.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) ->
                 dir = newValue
         );
@@ -104,10 +106,10 @@ public class DireccionController implements Initializable {
             dir.setEstatus(Estatus.valueOf(newValue.getNewValue().toString().toUpperCase()));
         }
 
-        String context = dir.toString();
+        String context = direccionDao_.actualizar(dir);
 
         Alert insercion = new Alert(Alert.AlertType.INFORMATION, context);
         insercion.show();
-
+        tableView.setItems(direccionDao_.mostrar());
     }
 }

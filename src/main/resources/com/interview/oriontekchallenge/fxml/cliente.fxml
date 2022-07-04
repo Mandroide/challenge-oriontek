@@ -31,7 +31,7 @@
                   <FontAwesomeIconView fill="WHITE" glyphName="PLUS" size="15" />
                </graphic>
             </Button>
-            <Button fx:id="btnAgregarDireccion" graphicTextGap="10.0" layoutX="513.0" layoutY="114.0" mnemonicParsing="false" onAction="#loadDireccionStage" prefHeight="24.0" prefWidth="185.0" stylesheets="@../css/main.css" text="Agregar direccion(es)" textFill="WHITE">
+            <Button fx:id="btnAgregarDireccion" disable="true" graphicTextGap="10.0" layoutX="513.0" layoutY="114.0" mnemonicParsing="false" onAction="#loadDireccionStage" prefHeight="24.0" prefWidth="185.0" stylesheets="@../css/main.css" text="Agregar direccion(es)" textFill="WHITE">
                <graphic>
                   <FontAwesomeIconView fill="WHITE" glyphName="PLUS" size="15" />
                </graphic>

@@ -1,6 +1,8 @@
 package com.interview.oriontekchallenge.controller;
 
 import com.interview.oriontekchallenge.beans.RadioButtonCell;
+import com.interview.oriontekchallenge.dao.DireccionDao;
+import com.interview.oriontekchallenge.daoimpl.DireccionDaoImpl;
 import com.interview.oriontekchallenge.model.Cliente;
 import com.interview.oriontekchallenge.model.Direccion;
 import com.interview.oriontekchallenge.model.Estatus;
@@ -21,6 +23,7 @@ import java.util.ResourceBundle;
 
 public class ClienteDireccionesController implements Initializable {
     private static Cliente cliente_;
+    private static final DireccionDao direccionDao_ = new DireccionDaoImpl();
     private final ObservableList<String> data = FXCollections.observableArrayList();
     @FXML
     private Label clienteId;
@@ -80,6 +83,7 @@ public class ClienteDireccionesController implements Initializable {
         llenarPaises();
         initTabla();
         initLabels();
+        tableView.setItems(direccionDao_.mostrar());
         tableView.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) ->
                 dir = newValue
         );
@@ -109,6 +113,11 @@ public class ClienteDireccionesController implements Initializable {
         paises.getSelectionModel().select(null);
     }
 
+    @FXML
+    private void buscar() {
+        tableView.setItems(direccionDao_.buscar(direccion.getText()));
+    }
+
     private boolean haConfirmado() {
         String mensaje =
                 "Direccion: " + direccion.getText() + "\n" +
@@ -128,10 +137,11 @@ public class ClienteDireccionesController implements Initializable {
             Direccion dir = new Direccion(cliente_, direccion.getText(),
                     codigoPostal.getText(), ciudad.getText(), paises.getValue());
 
-            String context = dir.toString();
+            String context = direccionDao_.insertar(dir);
             Alert insercion = new Alert(Alert.AlertType.INFORMATION, context);
             insercion.show();
             cliente_.getDirecciones().add(dir);
+            tableView.setItems(direccionDao_.mostrar());
             clear();
         }
 
@@ -162,10 +172,10 @@ public class ClienteDireccionesController implements Initializable {
             dir.setEstatus(Estatus.valueOf(newValue.getNewValue().toString().toUpperCase()));
         }
 
-        String context = dir.toString();
+        String context = direccionDao_.actualizar(dir);
 
         Alert insercion = new Alert(Alert.AlertType.INFORMATION, context);
-        insercion.show();
+        tableView.setItems(direccionDao_.mostrar());
 
     }
 }
