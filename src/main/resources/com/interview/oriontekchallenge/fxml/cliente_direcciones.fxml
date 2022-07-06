@@ -26,40 +26,40 @@
    <children>
       <AnchorPane prefWidth="961.0">
          <children>
-            <ComboBox fx:id="paises" layoutX="411.0" layoutY="10.0" prefHeight="25.0" prefWidth="253.0" promptText="Selecciona pais" style="-fx-background-color: white;" />
-            <TextField fx:id="direccion" layoutX="65.0" layoutY="2.0" prefHeight="25.0" prefWidth="287.0" promptText="Dirección" style="-fx-background-color: white;" />
-            <TextField fx:id="codigoPostal" layoutX="65.0" layoutY="47.0" prefHeight="25.0" prefWidth="166.0" promptText="Código Postal" style="-fx-background-color: white;" />
-            <TextField fx:id="ciudad" layoutX="65.0" layoutY="89.0" prefHeight="25.0" prefWidth="230.0" promptText="Ciudad" style="-fx-background-color: white;" />
+            <ComboBox fx:id="paises" layoutX="411.0" layoutY="10.0" prefHeight="25.0" prefWidth="253.0" promptText="Selecciona pais" styleClass="cbx-paises" stylesheets="@../css/main.css" />
+            <TextField fx:id="direccion" layoutX="65.0" layoutY="2.0" onKeyTyped="#buscar" prefHeight="25.0" prefWidth="287.0" promptText="Dirección" stylesheets="@../css/main.css" />
+            <TextField fx:id="codigoPostal" layoutX="65.0" layoutY="47.0" prefHeight="25.0" prefWidth="166.0" promptText="Código Postal" stylesheets="@../css/main.css" />
+            <TextField fx:id="ciudad" layoutX="65.0" layoutY="89.0" prefHeight="25.0" prefWidth="230.0" promptText="Ciudad" stylesheets="@../css/main.css" />
             <FontAwesomeIconView fill="#3f2b63" glyphName="SEARCH" layoutX="45.0" layoutY="20.0" size="16" />
             <Button defaultButton="true" graphicTextGap="10.0" layoutX="499.0" layoutY="71.0" mnemonicParsing="false" onAction="#agregar" prefHeight="24.0" prefWidth="173.0" stylesheets="@../css/main.css" text="Agregar" textFill="WHITE">
                <graphic>
                   <FontAwesomeIconView fill="WHITE" glyphName="PLUS" size="15" />
                </graphic>
             </Button>
-            <VBox layoutX="723.0" layoutY="19.0">
+            <VBox layoutX="723.0" layoutY="19.0" prefHeight="94.0" prefWidth="383.0">
                <children>
                   <HBox>
                      <children>
-                        <Label text="ID:" />
-                        <Label fx:id="clienteId" text="1502" textAlignment="RIGHT" />
+                        <Label styleClass="entity-details-key" stylesheets="@../css/main.css" text="ID:" />
+                        <Label fx:id="clienteId" prefHeight="23.0" prefWidth="98.0" styleClass="entity-details-value" stylesheets="@../css/main.css" text="1502" textAlignment="RIGHT" />
                      </children>
                   </HBox>
                   <HBox>
                      <children>
-                        <Label text="Nombre:" />
-                        <Label fx:id="clienteNombre" text="John Smith" textAlignment="RIGHT" />
+                        <Label styleClass="entity-details-key" stylesheets="@../css/main.css" text="Nombre:" />
+                        <Label fx:id="clienteNombre" styleClass="entity-details-value" stylesheets="@../css/main.css" text="John Smith" textAlignment="RIGHT" />
                      </children>
                   </HBox>
                   <HBox prefHeight="25.0" prefWidth="336.0">
                      <children>
-                        <Label prefHeight="25.0" prefWidth="52.0" text="Email:" />
-                        <Label fx:id="clienteEmail" prefHeight="25.0" prefWidth="208.0" text="thisisanexample@example.org" textAlignment="RIGHT" />
+                        <Label prefHeight="23.0" prefWidth="70.0" styleClass="entity-details-key" stylesheets="@../css/main.css" text="Email:" />
+                        <Label fx:id="clienteEmail" prefHeight="23.0" prefWidth="290.0" styleClass="entity-details-value" stylesheets="@../css/main.css" text="thisisanexample@example.org" textAlignment="RIGHT" />
                      </children>
                   </HBox>
                   <HBox>
                      <children>
-                        <Label text="Telefono:" />
-                        <Label fx:id="clienteTelefono" text="+1 (843) - 154 - 2597" />
+                        <Label styleClass="entity-details-key" stylesheets="@../css/main.css" text="Telefono:" />
+                        <Label fx:id="clienteTelefono" styleClass="entity-details-value" stylesheets="@../css/main.css" text="+1 (843) - 154 - 2597" />
                      </children>
                   </HBox>
                </children>
@@ -68,7 +68,7 @@
       </AnchorPane>
       <ScrollPane GridPane.rowIndex="1">
          <content>
-            <TableView fx:id="tableView" prefHeight="278.0" prefWidth="1115.0" stylesheets="@../css/main.css">
+            <TableView fx:id="tableView" editable="true" prefHeight="278.0" prefWidth="1115.0" stylesheets="@../css/main.css">
                <columns>
                   <TableColumn fx:id="columnaId" editable="false" prefWidth="39.0" resizable="false" text="ID" />
                   <TableColumn fx:id="columnaDireccion" onEditCommit="#actualizar" prefWidth="249.0" resizable="false" text="Direccion" />

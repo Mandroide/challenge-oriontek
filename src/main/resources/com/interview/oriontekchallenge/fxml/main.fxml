@@ -61,7 +61,7 @@
             </Label>
          </children>
       </Pane>
-      <FontAwesomeIconView fx:id="btnClose" fill="#868383" glyphName="CLOSE" layoutX="1346.0" layoutY="20.0" onMouseClicked="#handleClose" size="20" />
+      <FontAwesomeIconView fill="#868383" glyphName="CLOSE" layoutX="1346.0" layoutY="20.0" onMouseClicked="#handleClose" size="20" />
       <Label layoutX="276.0" layoutY="41.0" text="Manage your company with simplicity">
          <font>
             <Font size="11.0" />

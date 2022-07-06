@@ -25,7 +25,7 @@ public class RadioButtonCell<S, T extends Enum<T>> extends TableCell<S, T> {
         setGraphic(null);
         if (!empty) {
             // gui setup
-            HBox hb = new HBox(7);
+            HBox hb = new HBox(3);
             hb.setAlignment(Pos.CENTER);
             final ToggleGroup group = new ToggleGroup();
 

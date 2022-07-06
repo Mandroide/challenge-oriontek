@@ -39,11 +39,6 @@
     -fx-background-color: rgb(127, 172, 243);
 }
 
-.table-row-cell:selected .text {
-    -fx-fill: white;
-
-}
-
 /* scroll bar starts here */
 
 /* The increment and decrement button CSS class of scrollbar */
@@ -71,21 +66,8 @@
 
 }
 
-/* chart properties */
-
-.chart {
-    -fx-padding: 10px;
-    -fx-background-color: transparent;
-    -fx-legend-visible: false;
-}
-
-.chart-plot-background {
-    -fx-background-color: transparent;
-}
-
-.chart-pie {
-    -fx-border-color: derive(-fx-pie-color, 1%);
-    -fx-border-width: 0px;
+.text-field{
+    -fx-border-color: #3F2B63;
 }
 
 .dashboard-container {
@@ -102,4 +84,19 @@
 
 #panel-status {
     -fx-background-color: #7156DD;
+}
+
+.entity-details-key, .entity-details-value {
+    -fx-font-family: "Liberation Serif";
+    -fx-font-size: x-large;
+}
+
+.entity-details-key {
+    -fx-font-weight: bold;
+    -fx-padding: 0 2 0 0;
+}
+
+.cbx-paises {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #000000;
 }
