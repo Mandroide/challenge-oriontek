@@ -60,7 +60,6 @@ public class ClienteDireccionesController implements Initializable {
 
     @FXML
     private TableColumn<Direccion, Estatus> columnaEstatus;
-    private Direccion dir = new Direccion();
 
     public static void start(Cliente cliente) throws IOException {
         cliente_ = cliente;
@@ -94,9 +93,6 @@ public class ClienteDireccionesController implements Initializable {
         initTabla();
         initLabels();
         tableView.setItems(FXCollections.observableArrayList(service_.mostrar()));
-        tableView.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) ->
-                dir = newValue
-        );
     }
 
     private void initLabels() {
