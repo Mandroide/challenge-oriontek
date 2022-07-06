@@ -1,7 +1,8 @@
 package com.interview.oriontekchallenge.dao;
 
 import com.interview.oriontekchallenge.model.Cliente;
-import javafx.collections.ObservableList;
+
+import java.util.List;
 
 public interface ClienteDao {
     /**
@@ -16,13 +17,11 @@ public interface ClienteDao {
      */
     String actualizar(Cliente cliente);
 
-    Cliente mostrar(int clienteId);
+    List<Cliente> mostrar();
 
-    ObservableList<Cliente> mostrar();
+    List<Cliente> mostrarActivos();
 
-    ObservableList<Cliente> mostrarActivos();
+    List<Cliente> buscar(String textoABuscar);
 
-    ObservableList<Cliente> buscar(String textoABuscar);
-
-    ObservableList<Cliente> buscarActivos(String textoABuscar);
+    List<Cliente> buscarActivos(String textoABuscar);
 }

@@ -1,12 +1,8 @@
 package com.interview.oriontekchallenge.model;
 
-import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Objects;
 
-@Entity
-@Table(name = "Direccion")
-public class Direccion implements Serializable {
+public class Direccion {
 
     private Cliente cliente_;
     private int id_;
@@ -30,8 +26,6 @@ public class Direccion implements Serializable {
         setPais(pais);
     }
 
-    @ManyToOne
-    @JoinColumn(name = "clienteid")
     public Cliente getCliente_() {
         return cliente_;
     }
@@ -40,6 +34,14 @@ public class Direccion implements Serializable {
 
     public void setCliente_(Cliente cliente_) {
         this.cliente_ = cliente_;
+    }
+
+    public int getClienteId(){
+        return cliente_.getId();
+    }
+
+    public void setClienteId(int id){
+        cliente_.setId(id);
     }
 
     @Override
@@ -55,8 +57,6 @@ public class Direccion implements Serializable {
         );
     }
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "clienteid", nullable = false)
     public Cliente getCliente() {
         return cliente_;
     }
@@ -65,9 +65,6 @@ public class Direccion implements Serializable {
         cliente_ = cliente;
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "DireccionId")
     public int getId() {
         return id_;
     }

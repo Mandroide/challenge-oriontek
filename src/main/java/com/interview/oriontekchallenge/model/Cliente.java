@@ -1,15 +1,9 @@
 package com.interview.oriontekchallenge.model;
 
-import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Objects;
 import java.util.Set;
 
-@Entity
-@Table(name = "cliente", schema = "public", uniqueConstraints = {
-        @UniqueConstraint(name = "cliente_clienteemail_uindex", columnNames = {"clienteemail"})
-})
-public class Cliente implements Serializable {
+public class Cliente {
 
     private int id_;
     private String nombre_;
@@ -51,9 +45,6 @@ public class Cliente implements Serializable {
         setDirecciones(direcciones);
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ClienteId")
     public int getId() {
         return id_;
     }
@@ -62,7 +53,6 @@ public class Cliente implements Serializable {
         id_ = id;
     }
 
-    @Column(name = "ClienteNombre", nullable = false)
     public String getNombre() {
         return nombre_;
     }
@@ -71,7 +61,6 @@ public class Cliente implements Serializable {
         nombre_ = nombre;
     }
 
-    @Column(name = "ClienteEmail", nullable = false)
     public String getEmail() {
         return email_;
     }
@@ -80,7 +69,6 @@ public class Cliente implements Serializable {
         email_ = email;
     }
 
-    @Column(name = "ClienteTelefono", nullable = false)
     public String getTelefono() {
         return telefono_;
     }
@@ -89,8 +77,6 @@ public class Cliente implements Serializable {
         telefono_ = telefono;
     }
 
-    @OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL)
     public Set<Direccion> getDirecciones() {
         return direcciones_;
     }
@@ -99,7 +85,6 @@ public class Cliente implements Serializable {
         direcciones_ = direcciones;
     }
 
-    @Enumerated(EnumType.STRING)
     public Estatus getEstatus() {
         return estatus_;
     }

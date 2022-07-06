@@ -1,29 +1,32 @@
 package com.interview.oriontekchallenge.controller;
 
+import com.interview.oriontekchallenge.Main;
 import com.interview.oriontekchallenge.beans.RadioButtonCell;
-import com.interview.oriontekchallenge.dao.DireccionDao;
-import com.interview.oriontekchallenge.daoimpl.DireccionDaoImpl;
 import com.interview.oriontekchallenge.model.Cliente;
 import com.interview.oriontekchallenge.model.Direccion;
 import com.interview.oriontekchallenge.model.Estatus;
+import com.interview.oriontekchallenge.service.DireccionService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.ChoiceBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
-import java.util.Collections;
-import java.util.EnumSet;
-import java.util.Locale;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class ClienteDireccionesController implements Initializable {
-    private static Cliente cliente_;
-    private static final DireccionDao direccionDao_ = new DireccionDaoImpl();
+    private static Cliente cliente_ = new Cliente();
+    private static final DireccionService service_ = new DireccionService();
     private final ObservableList<String> data = FXCollections.observableArrayList();
     @FXML
     private Label clienteId;
@@ -59,13 +62,20 @@ public class ClienteDireccionesController implements Initializable {
     private TableColumn<Direccion, Estatus> columnaEstatus;
     private Direccion dir = new Direccion();
 
-    public static void setCliente(Cliente cliente) {
+    public static void start(Cliente cliente) throws IOException {
         cliente_ = cliente;
+        Parent root = FXMLLoader.load(Objects.requireNonNull(
+                Main.class.getResource("fxml/cliente_direcciones.fxml")
+        ));
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.show();
     }
 
     private void initTabla() {
         columnaId.setCellValueFactory(new PropertyValueFactory<>("id"));
-        columnaDireccion.setCellValueFactory(new PropertyValueFactory<>("direccion"));
+        columnaDireccion.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         columnaCodigoPostal.setCellValueFactory(new PropertyValueFactory<>("codigoPostal"));
         columnaCiudad.setCellValueFactory(new PropertyValueFactory<>("ciudad"));
         columnaPais.setCellValueFactory(new PropertyValueFactory<>("pais"));
@@ -83,7 +93,7 @@ public class ClienteDireccionesController implements Initializable {
         llenarPaises();
         initTabla();
         initLabels();
-        tableView.setItems(direccionDao_.mostrar());
+        tableView.setItems(FXCollections.observableArrayList(service_.mostrar()));
         tableView.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) ->
                 dir = newValue
         );
@@ -115,7 +125,7 @@ public class ClienteDireccionesController implements Initializable {
 
     @FXML
     private void buscar() {
-        tableView.setItems(direccionDao_.buscar(direccion.getText()));
+        tableView.setItems((ObservableList<Direccion>) service_.buscar(direccion.getText()));
     }
 
     private boolean haConfirmado() {
@@ -137,11 +147,11 @@ public class ClienteDireccionesController implements Initializable {
             Direccion dir = new Direccion(cliente_, direccion.getText(),
                     codigoPostal.getText(), ciudad.getText(), paises.getValue());
 
-            String context = direccionDao_.insertar(dir);
+            String context = service_.insertar(dir);
             Alert insercion = new Alert(Alert.AlertType.INFORMATION, context);
             insercion.show();
             cliente_.getDirecciones().add(dir);
-            tableView.setItems(direccionDao_.mostrar());
+            tableView.setItems(FXCollections.observableArrayList(service_.mostrar()));
             clear();
         }
 
@@ -172,10 +182,11 @@ public class ClienteDireccionesController implements Initializable {
             dir.setEstatus(Estatus.valueOf(newValue.getNewValue().toString().toUpperCase()));
         }
 
-        String context = direccionDao_.actualizar(dir);
+        String context = service_.actualizar(dir);
 
         Alert insercion = new Alert(Alert.AlertType.INFORMATION, context);
-        tableView.setItems(direccionDao_.mostrar());
+        insercion.show();
+        tableView.setItems(FXCollections.observableArrayList(service_.mostrar()));
 
     }
 }

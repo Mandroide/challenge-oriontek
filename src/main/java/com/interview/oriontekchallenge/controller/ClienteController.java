@@ -1,33 +1,28 @@
 package com.interview.oriontekchallenge.controller;
 
-import com.interview.oriontekchallenge.Main;
 import com.interview.oriontekchallenge.beans.RadioButtonCell;
-import com.interview.oriontekchallenge.dao.ClienteDao;
-import com.interview.oriontekchallenge.dao.DireccionDao;
-import com.interview.oriontekchallenge.daoimpl.ClienteDaoImpl;
-import com.interview.oriontekchallenge.daoimpl.DireccionDaoImpl;
+
 import com.interview.oriontekchallenge.model.Cliente;
 import com.interview.oriontekchallenge.model.Estatus;
+import com.interview.oriontekchallenge.service.ClienteService;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
+
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.EnumSet;
-import java.util.Objects;
+
 import java.util.ResourceBundle;
 
 public class ClienteController implements Initializable {
-    private static final DireccionDao direccionDao_ = new DireccionDaoImpl();
-    private static final ClienteDao clienteDao_ = new ClienteDaoImpl(direccionDao_);
+    private static final ClienteService service_ = new ClienteService();
     @FXML
     private Button btnAgregarDireccion;
     @FXML
@@ -66,7 +61,7 @@ public class ClienteController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         initTabla();
-        tableView.setItems(clienteDao_.mostrar());
+        tableView.setItems(FXCollections.observableArrayList(service_.mostrar()));
         tableView.getSelectionModel().selectedItemProperty()
                 .addListener((v, oldValue, newValue) -> {
                             if (newValue == null) {
@@ -81,7 +76,7 @@ public class ClienteController implements Initializable {
 
     @FXML
     private void buscar() {
-        tableView.setItems(clienteDao_.buscar(nombre.getText()));
+        tableView.setItems((ObservableList<Cliente>) service_.buscar(nombre.getText()));
     }
 
     private void clear() {
@@ -105,10 +100,10 @@ public class ClienteController implements Initializable {
     private void agregar() {
         if (haConfirmado()) {
             Cliente cliente = new Cliente(nombre.getText(), email.getText(), telefono.getText());
-            String context = clienteDao_.insertar(cliente);
+            String context = service_.insertar(cliente);
             Alert insercion = new Alert(Alert.AlertType.INFORMATION, context);
             insercion.show();
-            tableView.setItems(clienteDao_.mostrar());
+            tableView.setItems(FXCollections.observableArrayList(service_.mostrar()));
             clear();
         }
 
@@ -143,24 +138,17 @@ public class ClienteController implements Initializable {
             cliente.setEstatus(Estatus.valueOf(newValue.getNewValue().toString().toUpperCase()));
         }
 
-        String context = clienteDao_.actualizar(cliente);
+        String context = service_.actualizar(cliente);
         Alert insercion = new Alert(Alert.AlertType.INFORMATION, context);
         insercion.show();
-        tableView.setItems(clienteDao_.mostrar());
+        tableView.setItems(FXCollections.observableArrayList(service_.mostrar()));
 
     }
 
     @FXML
     private void loadDireccionStage() {
         try {
-            Parent root = FXMLLoader.load(Objects.requireNonNull(
-                    Main.class.getResource("fxml/cliente_direcciones.fxml")
-            ));
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.initModality(Modality.APPLICATION_MODAL);
-            ClienteDireccionesController.setCliente(cliente);
-            stage.show();
+            ClienteDireccionesController.start(cliente);
         } catch (IOException e) {
             e.printStackTrace();
         }

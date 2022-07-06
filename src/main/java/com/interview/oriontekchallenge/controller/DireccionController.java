@@ -1,10 +1,9 @@
 package com.interview.oriontekchallenge.controller;
 
 import com.interview.oriontekchallenge.beans.RadioButtonCell;
-import com.interview.oriontekchallenge.dao.DireccionDao;
-import com.interview.oriontekchallenge.daoimpl.DireccionDaoImpl;
 import com.interview.oriontekchallenge.model.Direccion;
 import com.interview.oriontekchallenge.model.Estatus;
+import com.interview.oriontekchallenge.service.DireccionService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -24,7 +23,7 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class DireccionController implements Initializable {
-    private static final DireccionDao direccionDao_ = new DireccionDaoImpl();
+    private static final DireccionService service_ = new DireccionService();
     @FXML
     private TableView<Direccion> tableView;
     @FXML
@@ -42,13 +41,16 @@ public class DireccionController implements Initializable {
     @FXML
     private TableColumn<Direccion, Estatus> columnaEstatus;
 
+    @FXML
+    private TextField direccion;
+
     private Direccion dir = new Direccion();
     private final ObservableList<String> data = FXCollections.observableArrayList();
 
     private void initTabla() {
         columnaId.setCellValueFactory(new PropertyValueFactory<>("id"));
         columnaClienteId.setCellValueFactory(new PropertyValueFactory<>("clienteId"));
-        columnaDireccion.setCellValueFactory(new PropertyValueFactory<>("direccion"));
+        columnaDireccion.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         columnaCodigoPostal.setCellValueFactory(new PropertyValueFactory<>("codigoPostal"));
         columnaCiudad.setCellValueFactory(new PropertyValueFactory<>("ciudad"));
         columnaPais.setCellValueFactory(new PropertyValueFactory<>("pais"));
@@ -65,7 +67,7 @@ public class DireccionController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         llenarPaises();
         initTabla();
-        tableView.setItems(direccionDao_.mostrar());
+        tableView.setItems(FXCollections.observableArrayList(service_.mostrar()));
         tableView.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) ->
                 dir = newValue
         );
@@ -80,6 +82,10 @@ public class DireccionController implements Initializable {
         Collections.sort(data);
     }
 
+    @FXML
+    private void buscar() {
+        tableView.setItems((ObservableList<Direccion>) service_.buscar(direccion.getText()));
+    }
 
     @FXML
     private void actualizar(TableColumn.CellEditEvent newValue) {
@@ -106,10 +112,10 @@ public class DireccionController implements Initializable {
             dir.setEstatus(Estatus.valueOf(newValue.getNewValue().toString().toUpperCase()));
         }
 
-        String context = direccionDao_.actualizar(dir);
+        String context = service_.actualizar(dir);
 
         Alert insercion = new Alert(Alert.AlertType.INFORMATION, context);
         insercion.show();
-        tableView.setItems(direccionDao_.mostrar());
+        tableView.setItems(FXCollections.observableArrayList(service_.mostrar()));
     }
 }

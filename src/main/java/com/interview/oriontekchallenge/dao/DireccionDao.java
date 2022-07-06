@@ -2,7 +2,8 @@ package com.interview.oriontekchallenge.dao;
 
 import com.interview.oriontekchallenge.model.Cliente;
 import com.interview.oriontekchallenge.model.Direccion;
-import javafx.collections.ObservableList;
+
+import java.util.List;
 
 public interface DireccionDao {
     /**
@@ -17,17 +18,17 @@ public interface DireccionDao {
      */
     String actualizar(Direccion direccion);
 
-    Direccion mostrar(int direccionId);
+    List<Direccion> mostrar();
 
-    ObservableList<Direccion> mostrar();
+    List<Direccion> mostrarActivos();
 
-    ObservableList<Direccion> mostrarActivos();
+    List<Direccion> mostrar(Cliente cliente);
 
-    ObservableList<Direccion> mostrar(Cliente cliente);
+    List<Direccion> mostrarActivos(Cliente cliente);
 
-    ObservableList<Direccion> mostrarActivos(Cliente cliente);
+    List<Direccion> buscar(String textoABuscar);
 
-    ObservableList<Direccion> buscar(String textoABuscar);
+    List<Direccion> buscar(Cliente cliente, String textoABuscar);
 
-    ObservableList<Direccion> buscarActivos(String textoABuscar);
+    List<Direccion> buscarActivos(String textoABuscar);
 }

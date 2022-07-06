@@ -1,6 +1,5 @@
 package com.interview.oriontekchallenge.controller;
 
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -8,7 +7,6 @@ import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
@@ -22,9 +20,6 @@ import java.util.logging.Logger;
 public class Controller implements Initializable {
 
     @FXML
-    private FontAwesomeIconView btnClose;
-
-    @FXML
     private StackPane contentArea;
 
     @FXML
@@ -34,12 +29,6 @@ public class Controller implements Initializable {
     private Button btnDirecciones;
 
     @FXML
-    private GridPane pnClientes;
-
-    @FXML
-    private GridPane pnDirecciones;
-
-    @FXML
     private Pane pnlStatus;
 
     @FXML
@@ -47,9 +36,6 @@ public class Controller implements Initializable {
 
     @FXML
     private Label lblStatusMini;
-
-    @FXML
-    private TableView<?> tableViewDirecciones;
 
     @FXML
     private void handleClicks(javafx.event.ActionEvent event) {

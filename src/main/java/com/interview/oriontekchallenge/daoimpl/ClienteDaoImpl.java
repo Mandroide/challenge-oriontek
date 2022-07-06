@@ -1,35 +1,28 @@
 package com.interview.oriontekchallenge.daoimpl;
 
 import com.interview.oriontekchallenge.dao.ClienteDao;
-import com.interview.oriontekchallenge.dao.DireccionDao;
 import com.interview.oriontekchallenge.model.Cliente;
-import com.interview.oriontekchallenge.model.Direccion;
 import com.interview.oriontekchallenge.model.Estatus;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ClienteDaoImpl implements ClienteDao {
-    private final DireccionDao direccionDao_;
-
-    public ClienteDaoImpl(DireccionDao direccionDao_) {
-        this.direccionDao_ = direccionDao_;
-    }
 
     @Override
     public String insertar(Cliente cliente) {
         String mensaje;
         try (Connection conn = Conexion.conectar()) {
-            String sql_cliente = "INSERT INTO Cliente(ClienteNombre, " +
-                    "ClienteEmail, ClienteTelefono) VALUES (?, ?, ?) RETURNING clienteid;";
+            String sql_cliente = "SELECT * FROM Cliente_Insertar(nombre := ?,"
+                    + "email := ?, telefono := ?)";
             conn.setAutoCommit(false);
             try (PreparedStatement query = new AtomicReference<>
                     (conn.prepareStatement(sql_cliente)).get()) {
@@ -42,10 +35,6 @@ public class ClienteDaoImpl implements ClienteDao {
                     ResultSet rs = query.getResultSet();
                     rs.next();
                     cliente.setId(rs.getInt(1));
-                    for (Direccion dir :
-                            cliente.getDirecciones()) {
-                        direccionDao_.insertar(dir);
-                    }
                     conn.commit();
                     mensaje = "El registro ha sido agregado exitosamente.";
                 } else {
@@ -72,9 +61,9 @@ public class ClienteDaoImpl implements ClienteDao {
     public String actualizar(Cliente cliente) {
         String mensaje;
         try (Connection conn = Conexion.conectar()) {
-            String sql = "UPDATE Cliente SET ClienteNombre = ?," +
-                    "ClienteEmail = ?, ClienteTelefono = ?, ClienteEstatus = ?" +
-                    " WHERE ClienteId = ? ;\n";
+            String sql = "UPDATE \"Cliente\" SET \"ClienteNombre\" = ?," +
+                    "\"ClienteEmail\" = ?, \"ClienteTelefono\" = ?, \"ClienteEstatus\" = ?" +
+                    " WHERE \"ClienteId\" = ? ;\n";
             try (PreparedStatement query = conn.prepareStatement(sql)) {
                 query.setString(1, cliente.getNombre());
                 query.setString(2, cliente.getEmail());
@@ -103,25 +92,9 @@ public class ClienteDaoImpl implements ClienteDao {
 
     }
 
-    // TODO: Crear función cliente_mostrar(id :=?)
     @Override
-    public Cliente mostrar(int clienteId) {
-        Cliente cliente = new Cliente();
-        try (Connection conn = Conexion.conectar()) {
-            String sql_cliente = "SELECT * FROM cliente_mostrar(id := ?)";
-            PreparedStatement query = conn.prepareStatement(sql_cliente);
-            query.setInt(1, clienteId);
-            cliente = crear(query.executeQuery());
-
-        } catch (SQLException ex) {
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
-        }
-        return cliente;
-    }
-
-    @Override
-    public ObservableList<Cliente> mostrar() {
-        ObservableList<Cliente> data = FXCollections.observableArrayList();
+    public List<Cliente> mostrar() {
+        List<Cliente> data = new ArrayList<>();
         try (Connection conn = Conexion.conectar()) {
             PreparedStatement query = conn.prepareStatement("SELECT * from cliente_mostrar()");
             data = leer(query.executeQuery());
@@ -131,8 +104,8 @@ public class ClienteDaoImpl implements ClienteDao {
         return data;
     }
 
-    private ObservableList<Cliente> leer(ResultSet resultSet) throws SQLException {
-        ObservableList<Cliente> data = FXCollections.observableArrayList();
+    private List<Cliente> leer(ResultSet resultSet) throws SQLException {
+        List<Cliente> data = new ArrayList<>();
         while (resultSet.next()) {
             data.add(crear(resultSet));
         }
@@ -158,8 +131,8 @@ public class ClienteDaoImpl implements ClienteDao {
     }
 
     @Override
-    public ObservableList<Cliente> mostrarActivos() {
-        ObservableList<Cliente> data = FXCollections.observableArrayList();
+    public List<Cliente> mostrarActivos() {
+        List<Cliente> data = new ArrayList<>();
         try (Connection conn = Conexion.conectar()) {
             PreparedStatement query = conn.prepareStatement("SELECT * from cliente_mostraractivos()");
             data = leer(query.executeQuery());
@@ -170,8 +143,8 @@ public class ClienteDaoImpl implements ClienteDao {
     }
 
     @Override
-    public ObservableList<Cliente> buscar(String textoABuscar) {
-        ObservableList<Cliente> data = FXCollections.observableArrayList();
+    public List<Cliente> buscar(String textoABuscar) {
+        List<Cliente> data = new ArrayList<>();
         try (Connection conn = Conexion.conectar()) {
             PreparedStatement query = conn.prepareStatement("SELECT * from cliente_buscar(?)");
             query.setString(1, textoABuscar);
@@ -184,8 +157,8 @@ public class ClienteDaoImpl implements ClienteDao {
     }
 
     @Override
-    public ObservableList<Cliente> buscarActivos(String textoABuscar) {
-        ObservableList<Cliente> data = FXCollections.observableArrayList();
+    public List<Cliente> buscarActivos(String textoABuscar) {
+        List<Cliente> data = new ArrayList<>();
         try (Connection conn = Conexion.conectar()) {
             PreparedStatement query = conn.prepareStatement("SELECT * from cliente_buscaractivos(?)");
             query.setString(1, textoABuscar);
