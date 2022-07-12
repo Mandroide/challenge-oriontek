@@ -7,7 +7,6 @@ import com.interview.oriontekchallenge.service.DireccionService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -22,8 +21,13 @@ import java.util.EnumSet;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-public class DireccionController implements Initializable {
+public class DireccionController {
     private static final DireccionService service_ = new DireccionService();
+    private final ObservableList<String> data = FXCollections.observableArrayList();
+    @FXML
+    private URL location;
+    @FXML
+    private ResourceBundle resources;
     @FXML
     private TableView<Direccion> tableView;
     @FXML
@@ -40,12 +44,9 @@ public class DireccionController implements Initializable {
     private TableColumn<Direccion, String> columnaPais;
     @FXML
     private TableColumn<Direccion, Estatus> columnaEstatus;
-
     @FXML
     private TextField direccion;
-
     private Direccion dir = new Direccion();
-    private final ObservableList<String> data = FXCollections.observableArrayList();
 
     private void initTabla() {
         columnaId.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -63,8 +64,8 @@ public class DireccionController implements Initializable {
         columnaEstatus.setCellFactory((param) -> new RadioButtonCell<>(EnumSet.allOf(Estatus.class)));
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    @FXML
+    private void initialize() {
         llenarPaises();
         initTabla();
         tableView.setItems(FXCollections.observableArrayList(service_.mostrar()));

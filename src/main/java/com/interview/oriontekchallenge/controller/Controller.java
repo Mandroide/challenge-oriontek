@@ -2,7 +2,6 @@ package com.interview.oriontekchallenge.controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
@@ -17,7 +16,11 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Controller implements Initializable {
+public class Controller {
+    @FXML
+    private URL location;
+    @FXML
+    private ResourceBundle resources;
 
     @FXML
     private StackPane contentArea;
@@ -66,8 +69,8 @@ public class Controller implements Initializable {
     }
 
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    @FXML
+    private void initialize() {
         loadOption("fxml/cliente.fxml");
     }
 

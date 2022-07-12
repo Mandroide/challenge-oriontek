@@ -1,28 +1,28 @@
 package com.interview.oriontekchallenge.controller;
 
 import com.interview.oriontekchallenge.beans.RadioButtonCell;
-
 import com.interview.oriontekchallenge.model.Cliente;
 import com.interview.oriontekchallenge.model.Estatus;
 import com.interview.oriontekchallenge.service.ClienteService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.EnumSet;
-
 import java.util.ResourceBundle;
 
-public class ClienteController implements Initializable {
+
+public class ClienteController {
     private static final ClienteService service_ = new ClienteService();
+    @FXML
+    private URL location;
+    @FXML
+    private ResourceBundle resources;
     @FXML
     private Button btnAgregarDireccion;
     @FXML
@@ -58,8 +58,8 @@ public class ClienteController implements Initializable {
         columnaEstatus.setCellFactory((param) -> new RadioButtonCell<>(EnumSet.allOf(Estatus.class)));
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    @FXML
+    private void initialize() {
         initTabla();
         tableView.setItems(FXCollections.observableArrayList(service_.mostrar()));
         tableView.getSelectionModel().selectedItemProperty()

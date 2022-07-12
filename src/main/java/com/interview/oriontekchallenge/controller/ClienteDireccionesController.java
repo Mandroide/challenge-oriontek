@@ -10,7 +10,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -24,10 +23,14 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
-public class ClienteDireccionesController implements Initializable {
-    private static Cliente cliente_ = new Cliente();
+public class ClienteDireccionesController {
     private static final DireccionService service_ = new DireccionService();
+    private static Cliente cliente_ = new Cliente();
     private final ObservableList<String> data = FXCollections.observableArrayList();
+    @FXML
+    private URL location;
+    @FXML
+    private ResourceBundle resources;
     @FXML
     private Label clienteId;
     @FXML
@@ -87,8 +90,8 @@ public class ClienteDireccionesController implements Initializable {
         columnaEstatus.setCellFactory((param) -> new RadioButtonCell<>(EnumSet.allOf(Estatus.class)));
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    @FXML
+    private void initialize() {
         llenarPaises();
         initTabla();
         initLabels();
