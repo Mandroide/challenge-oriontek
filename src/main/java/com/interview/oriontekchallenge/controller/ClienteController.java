@@ -76,7 +76,7 @@ public class ClienteController implements Initializable {
 
     @FXML
     private void buscar() {
-        tableView.setItems((ObservableList<Cliente>) service_.buscar(nombre.getText()));
+        tableView.setItems(FXCollections.observableArrayList(service_.buscar(nombre.getText())));
     }
 
     private void clear() {

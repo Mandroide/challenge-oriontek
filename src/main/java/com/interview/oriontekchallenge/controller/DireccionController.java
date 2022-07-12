@@ -84,7 +84,7 @@ public class DireccionController implements Initializable {
 
     @FXML
     private void buscar() {
-        tableView.setItems((ObservableList<Direccion>) service_.buscar(direccion.getText()));
+        tableView.setItems(FXCollections.observableArrayList(service_.buscar(direccion.getText())));
     }
 
     @FXML
