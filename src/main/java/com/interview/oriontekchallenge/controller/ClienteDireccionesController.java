@@ -1,6 +1,7 @@
 package com.interview.oriontekchallenge.controller;
 
 import com.interview.oriontekchallenge.Main;
+import com.interview.oriontekchallenge.Resources;
 import com.interview.oriontekchallenge.beans.RadioButtonCell;
 import com.interview.oriontekchallenge.model.Cliente;
 import com.interview.oriontekchallenge.model.Direccion;
@@ -24,13 +25,18 @@ import java.net.URL;
 import java.util.*;
 
 public class ClienteDireccionesController {
-    private static final DireccionService service_ = new DireccionService();
+    private static DireccionService service_;
+
+    public ClienteDireccionesController() {
+        service_ = new DireccionService(Main.getDaoImplBundle());
+    }
+
     private static Cliente cliente_ = new Cliente();
     private final ObservableList<String> data = FXCollections.observableArrayList();
     @FXML
     private URL location;
     @FXML
-    private ResourceBundle resources;
+    private static ResourceBundle resources;
     @FXML
     private Label clienteId;
     @FXML
@@ -66,9 +72,11 @@ public class ClienteDireccionesController {
 
     public static void start(Cliente cliente) throws IOException {
         cliente_ = cliente;
+        resources = ResourceBundle.getBundle(Main.class.getPackageName()
+                + ".bundle." + Resources.CLIENTE_DIRECCIONES.getBundlePath());
         Parent root = FXMLLoader.load(Objects.requireNonNull(
-                Main.class.getResource("fxml/cliente_direcciones.fxml")
-        ));
+                Main.class.getResource("fxml/" + Resources.CLIENTE_DIRECCIONES.getFxmlPath())
+        ), resources);
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.initModality(Modality.APPLICATION_MODAL);
@@ -129,13 +137,13 @@ public class ClienteDireccionesController {
 
     private boolean haConfirmado() {
         String mensaje =
-                "Direccion: " + direccion.getText() + "\n" +
-                        "Pais: " + paises.getSelectionModel().getSelectedItem() + "\n" +
-                        "Ciudad: " + ciudad.getText() + "\n" +
-                        "Codigo Postal: " + codigoPostal.getText() + "\n";
+                resources.getString("direccion.promptText") + ": " + direccion.getText() + "\n"
+                        + resources.getString("codigoPostal.promptText") + ": " +  codigoPostal.getText() + "\n"
+                        + resources.getString("ciudad.promptText") + ": " +  ciudad.getText() + "\n"
+                        + resources.getString("columnaPais.text") + ": " + paises.getSelectionModel().getSelectedItem() + "\n";
 
         Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
-        alerta.setTitle("\"¿Desea continuar?\"");
+        alerta.setTitle(resources.getString("alert.confirmation.title"));
         alerta.setHeaderText(mensaje);
         return alerta.showAndWait().isPresent();
     }

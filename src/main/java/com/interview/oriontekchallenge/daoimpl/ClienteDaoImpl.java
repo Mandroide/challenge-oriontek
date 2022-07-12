@@ -11,11 +11,17 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ClienteDaoImpl implements ClienteDao {
+    private final ResourceBundle resourceBundle_;
+
+    public ClienteDaoImpl(ResourceBundle resourceBundle) {
+        resourceBundle_ = resourceBundle;
+    }
 
     @Override
     public String insertar(Cliente cliente) {
@@ -36,9 +42,9 @@ public class ClienteDaoImpl implements ClienteDao {
                     rs.next();
                     cliente.setId(rs.getInt(1));
                     conn.commit();
-                    mensaje = "El registro ha sido agregado exitosamente.";
+                    mensaje = resourceBundle_.getString("insert.success");
                 } else {
-                    throw new SQLException("El registro no pudo ser agregado correctamente.\n");
+                    throw new SQLException(resourceBundle_.getString("insert.failure"));
                 }
 
             } catch (SQLException ex) {
@@ -49,7 +55,7 @@ public class ClienteDaoImpl implements ClienteDao {
             }
 
         } catch (SQLException ex) {
-            mensaje = "La conexion a la base de datos no pudo ser realizada exitosamente.";
+            mensaje = resourceBundle_.getString("database.failure");
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -73,9 +79,9 @@ public class ClienteDaoImpl implements ClienteDao {
 
                 boolean esEjecutado = (query.executeUpdate() > 0);
                 if (esEjecutado) {
-                    mensaje = "El registro ha sido actualizado exitosamente.";
+                    mensaje = resourceBundle_.getString("update.success");
                 } else {
-                    throw new SQLException("El registro no pudo ser actualizado correctamente.");
+                    throw new SQLException(resourceBundle_.getString("update.failure"));
                 }
 
             } catch (SQLException ex) {
@@ -84,7 +90,7 @@ public class ClienteDaoImpl implements ClienteDao {
             }
 
         } catch (SQLException ex) {
-            mensaje = "La conexion a la base de datos no pudo ser realizada exitosamente.";
+            mensaje = resourceBundle_.getString("database.failure");
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
         }
 

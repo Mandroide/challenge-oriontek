@@ -6,12 +6,13 @@ import com.interview.oriontekchallenge.model.Cliente;
 import com.interview.oriontekchallenge.model.Direccion;
 
 import java.util.List;
+import java.util.ResourceBundle;
 
 public class DireccionService {
     private final DireccionDao dao_;
 
-    public DireccionService() {
-        dao_ = new DireccionDaoImpl();
+    public DireccionService(ResourceBundle resourceBundle) {
+        dao_ = new DireccionDaoImpl(resourceBundle);
     }
 
     public DireccionService(DireccionDao dao_) {

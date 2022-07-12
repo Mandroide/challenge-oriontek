@@ -12,11 +12,17 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class DireccionDaoImpl implements DireccionDao {
+    private final ResourceBundle resourceBundle_;
+    public DireccionDaoImpl(ResourceBundle resourceBundle) {
+        resourceBundle_ = resourceBundle;
+    }
+
     @Override
     public String insertar(Direccion direccion) {
         String mensaje;
@@ -32,10 +38,10 @@ public class DireccionDaoImpl implements DireccionDao {
                 statement.setString(5, direccion.getPais());
                 boolean esEjecutado = statement.execute();
                 if (esEjecutado) {
-                    mensaje = "El registro ha sido agregado exitosamente.";
+                    mensaje = resourceBundle_.getString("insert.success");
 
                 } else {
-                    throw new SQLException("El registro no pudo ser agregado correctamente.\n");
+                    throw new SQLException(resourceBundle_.getString("insert.failure"));
                 }
 
 
@@ -46,7 +52,7 @@ public class DireccionDaoImpl implements DireccionDao {
             }
 
         } catch (SQLException ex) {
-            mensaje = "La conexion a la base de datos no pudo ser realizada exitosamente.";
+            mensaje = resourceBundle_.getString("database.failure");
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -70,9 +76,9 @@ public class DireccionDaoImpl implements DireccionDao {
 
                 boolean esEjecutado = (query.executeUpdate() > 0);
                 if (esEjecutado) {
-                    mensaje = "El registro ha sido actualizado exitosamente.";
+                    mensaje = resourceBundle_.getString("update.success");
                 } else {
-                    throw new SQLException("El registro no pudo ser actualizado correctamente.");
+                    throw new SQLException(resourceBundle_.getString("update.failure"));
                 }
 
             } catch (SQLException ex) {
@@ -81,7 +87,7 @@ public class DireccionDaoImpl implements DireccionDao {
             }
 
         } catch (SQLException ex) {
-            mensaje = "La conexion a la base de datos no pudo ser realizada exitosamente.";
+            mensaje = resourceBundle_.getString("database.failure");
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
         }
 

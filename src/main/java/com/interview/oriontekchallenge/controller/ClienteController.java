@@ -1,5 +1,7 @@
 package com.interview.oriontekchallenge.controller;
 
+import com.interview.oriontekchallenge.Main;
+import com.interview.oriontekchallenge.Resources;
 import com.interview.oriontekchallenge.beans.RadioButtonCell;
 import com.interview.oriontekchallenge.model.Cliente;
 import com.interview.oriontekchallenge.model.Estatus;
@@ -18,7 +20,7 @@ import java.util.ResourceBundle;
 
 
 public class ClienteController {
-    private static final ClienteService service_ = new ClienteService();
+    private final ClienteService service_;
     @FXML
     private URL location;
     @FXML
@@ -45,6 +47,10 @@ public class ClienteController {
     private TableColumn<Cliente, Estatus> columnaEstatus;
     private Cliente cliente = new Cliente();
 
+    public ClienteController() {
+        this.service_ = new ClienteService(Main.getDaoImplBundle());
+    }
+
     private void initTabla() {
         columnaId.setCellValueFactory(new PropertyValueFactory<>("id"));
         columnaNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
@@ -60,6 +66,7 @@ public class ClienteController {
 
     @FXML
     private void initialize() {
+        resources = ResourceBundle.getBundle(Main.class.getPackageName()+ ".bundle." + Resources.CLIENTE.getBundlePath());
         initTabla();
         tableView.setItems(FXCollections.observableArrayList(service_.mostrar()));
         tableView.getSelectionModel().selectedItemProperty()
@@ -86,12 +93,12 @@ public class ClienteController {
     }
 
     private boolean haConfirmado() {
-        String mensaje = ("Nombre: " + nombre.getText() + "\n") +
-                "Email: " + email.getText() + "\n" +
-                "Telefono: " + telefono.getText() + "\n";
+        String mensaje = (resources.getString("nombre.promptText") + ": " + nombre.getText() + "\n") +
+                resources.getString("email.promptText") + ": " + email.getText() + "\n" +
+                resources.getString("telefono.promptText") + ": " + telefono.getText() + "\n";
 
         Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
-        alerta.setTitle("\"¿Desea continuar?\"");
+        alerta.setTitle(resources.getString("alert.confirmation.title"));
         alerta.setHeaderText(mensaje);
         return alerta.showAndWait().isPresent();
     }

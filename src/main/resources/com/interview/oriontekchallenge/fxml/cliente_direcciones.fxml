@@ -26,12 +26,12 @@
    <children>
       <AnchorPane prefWidth="961.0">
          <children>
-            <ComboBox fx:id="paises" layoutX="411.0" layoutY="10.0" prefHeight="25.0" prefWidth="253.0" promptText="Selecciona pais" styleClass="cbx-paises" stylesheets="@../css/main.css" />
-            <TextField fx:id="direccion" layoutX="65.0" layoutY="2.0" onKeyTyped="#buscar" prefHeight="25.0" prefWidth="287.0" promptText="Dirección" stylesheets="@../css/main.css" />
-            <TextField fx:id="codigoPostal" layoutX="65.0" layoutY="47.0" prefHeight="25.0" prefWidth="166.0" promptText="Código Postal" stylesheets="@../css/main.css" />
-            <TextField fx:id="ciudad" layoutX="65.0" layoutY="89.0" prefHeight="25.0" prefWidth="230.0" promptText="Ciudad" stylesheets="@../css/main.css" />
+            <ComboBox fx:id="paises" layoutX="411.0" layoutY="10.0" prefHeight="25.0" prefWidth="253.0" promptText="%paises.promptText" styleClass="cbx-paises" stylesheets="@../css/main.css" />
+            <TextField fx:id="direccion" layoutX="65.0" layoutY="2.0" onKeyTyped="#buscar" prefHeight="25.0" prefWidth="287.0" promptText="%direccion.promptText" stylesheets="@../css/main.css" />
+            <TextField fx:id="codigoPostal" layoutX="65.0" layoutY="47.0" prefHeight="25.0" prefWidth="166.0" promptText="%codigoPostal.promptText" stylesheets="@../css/main.css" />
+            <TextField fx:id="ciudad" layoutX="65.0" layoutY="89.0" prefHeight="25.0" prefWidth="230.0" promptText="%ciudad.promptText" stylesheets="@../css/main.css" />
             <FontAwesomeIconView fill="#3f2b63" glyphName="SEARCH" layoutX="45.0" layoutY="20.0" size="16" />
-            <Button defaultButton="true" graphicTextGap="10.0" layoutX="499.0" layoutY="71.0" mnemonicParsing="false" onAction="#agregar" prefHeight="24.0" prefWidth="173.0" stylesheets="@../css/main.css" text="Agregar" textFill="WHITE">
+            <Button defaultButton="true" graphicTextGap="10.0" layoutX="499.0" layoutY="71.0" mnemonicParsing="false" onAction="#agregar" prefHeight="24.0" prefWidth="173.0" stylesheets="@../css/main.css" text="%btnAgregar.text" textFill="WHITE">
                <graphic>
                   <FontAwesomeIconView fill="WHITE" glyphName="PLUS" size="15" />
                </graphic>
@@ -40,25 +40,25 @@
                <children>
                   <HBox>
                      <children>
-                        <Label styleClass="entity-details-key" stylesheets="@../css/main.css" text="ID:" />
+                        <Label styleClass="entity-details-key" stylesheets="@../css/main.css" text="%clienteId.text" />
                         <Label fx:id="clienteId" prefHeight="23.0" prefWidth="98.0" styleClass="entity-details-value" stylesheets="@../css/main.css" text="1502" textAlignment="RIGHT" />
                      </children>
                   </HBox>
                   <HBox>
                      <children>
-                        <Label styleClass="entity-details-key" stylesheets="@../css/main.css" text="Nombre:" />
+                        <Label styleClass="entity-details-key" stylesheets="@../css/main.css" text="%clienteNombre.text" />
                         <Label fx:id="clienteNombre" styleClass="entity-details-value" stylesheets="@../css/main.css" text="John Smith" textAlignment="RIGHT" />
                      </children>
                   </HBox>
                   <HBox prefHeight="25.0" prefWidth="336.0">
                      <children>
-                        <Label prefHeight="23.0" prefWidth="70.0" styleClass="entity-details-key" stylesheets="@../css/main.css" text="Email:" />
+                        <Label prefHeight="23.0" prefWidth="70.0" styleClass="entity-details-key" stylesheets="@../css/main.css" text="%clienteEmail.text" />
                         <Label fx:id="clienteEmail" prefHeight="23.0" prefWidth="290.0" styleClass="entity-details-value" stylesheets="@../css/main.css" text="thisisanexample@example.org" textAlignment="RIGHT" />
                      </children>
                   </HBox>
                   <HBox>
                      <children>
-                        <Label styleClass="entity-details-key" stylesheets="@../css/main.css" text="Telefono:" />
+                        <Label styleClass="entity-details-key" stylesheets="@../css/main.css" text="%clienteTelefono.text" />
                         <Label fx:id="clienteTelefono" styleClass="entity-details-value" stylesheets="@../css/main.css" text="+1 (843) - 154 - 2597" />
                      </children>
                   </HBox>
@@ -70,12 +70,12 @@
          <content>
             <TableView fx:id="tableView" editable="true" prefHeight="278.0" prefWidth="1115.0" stylesheets="@../css/main.css">
                <columns>
-                  <TableColumn fx:id="columnaId" editable="false" prefWidth="39.0" resizable="false" text="ID" />
-                  <TableColumn fx:id="columnaDireccion" onEditCommit="#actualizar" prefWidth="249.0" resizable="false" text="Direccion" />
-                  <TableColumn fx:id="columnaCodigoPostal" onEditCommit="#actualizar" prefWidth="133.0" resizable="false" text="Codigo Postal" />
-                  <TableColumn fx:id="columnaCiudad" onEditCommit="#actualizar" prefWidth="223.0" resizable="false" text="Ciudad" />
-                  <TableColumn fx:id="columnaPais" onEditCommit="#actualizar" prefWidth="267.0" resizable="false" text="Pais" />
-                  <TableColumn fx:id="columnaEstatus" onEditCommit="#actualizar" prefWidth="203.0" resizable="false" text="Estatus" />
+                  <TableColumn fx:id="columnaId" editable="false" prefWidth="39.0" resizable="false" text="%columnaId.text" />
+                  <TableColumn fx:id="columnaDireccion" onEditCommit="#actualizar" prefWidth="249.0" resizable="false" text="%columnaDireccion.text" />
+                  <TableColumn fx:id="columnaCodigoPostal" onEditCommit="#actualizar" prefWidth="133.0" resizable="false" text="%columnaCodigoPostal.text" />
+                  <TableColumn fx:id="columnaCiudad" onEditCommit="#actualizar" prefWidth="223.0" resizable="false" text="%columnaCiudad.text" />
+                  <TableColumn fx:id="columnaPais" onEditCommit="#actualizar" prefWidth="267.0" resizable="false" text="%columnaPais.text" />
+                  <TableColumn fx:id="columnaEstatus" onEditCommit="#actualizar" prefWidth="203.0" resizable="false" text="%columnaEstatus.text" />
                </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

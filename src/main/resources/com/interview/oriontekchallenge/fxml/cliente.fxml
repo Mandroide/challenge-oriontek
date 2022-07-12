@@ -22,16 +22,16 @@
 <children>
       <AnchorPane prefWidth="961.0">
          <children>
-            <TextField fx:id="nombre" layoutX="65.0" layoutY="2.0" onKeyTyped="#buscar" prefHeight="25.0" prefWidth="287.0" promptText="Nombre" stylesheets="@../css/main.css" />
-            <TextField fx:id="email" layoutX="65.0" layoutY="47.0" prefHeight="25.0" prefWidth="299.0" promptText="Email" stylesheets="@../css/main.css" />
-            <TextField fx:id="telefono" layoutX="65.0" layoutY="89.0" prefHeight="25.0" prefWidth="166.0" promptText="Telefono" stylesheets="@../css/main.css" />
+            <TextField fx:id="nombre" layoutX="65.0" layoutY="2.0" onKeyTyped="#buscar" prefHeight="25.0" prefWidth="287.0" promptText="%nombre.promptText" stylesheets="@../css/main.css" />
+            <TextField fx:id="email" layoutX="65.0" layoutY="47.0" prefHeight="25.0" prefWidth="299.0" promptText="%email.promptText" stylesheets="@../css/main.css" />
+            <TextField fx:id="telefono" layoutX="65.0" layoutY="89.0" prefHeight="25.0" prefWidth="166.0" promptText="%telefono.promptText" stylesheets="@../css/main.css" />
             <FontAwesomeIconView fill="#3f2b63" glyphName="SEARCH" layoutX="45.0" layoutY="20.0" size="16" />
-            <Button defaultButton="true" graphicTextGap="10.0" layoutX="513.0" layoutY="71.0" mnemonicParsing="false" onAction="#agregar" prefHeight="24.0" prefWidth="173.0" stylesheets="@../css/main.css" text="Agregar" textFill="WHITE">
+            <Button defaultButton="true" graphicTextGap="10.0" layoutX="513.0" layoutY="71.0" mnemonicParsing="false" onAction="#agregar" prefHeight="24.0" prefWidth="173.0" stylesheets="@../css/main.css" text="%btnAgregar.text" textFill="WHITE">
                <graphic>
                   <FontAwesomeIconView fill="WHITE" glyphName="PLUS" size="15" />
                </graphic>
             </Button>
-            <Button fx:id="btnAgregarDireccion" disable="true" graphicTextGap="10.0" layoutX="513.0" layoutY="114.0" mnemonicParsing="false" onAction="#loadDireccionStage" prefHeight="24.0" prefWidth="185.0" stylesheets="@../css/main.css" text="Agregar direccion(es)" textFill="WHITE">
+            <Button fx:id="btnAgregarDireccion" disable="true" graphicTextGap="10.0" layoutX="513.0" layoutY="114.0" mnemonicParsing="false" onAction="#loadDireccionStage" prefHeight="24.0" prefWidth="185.0" stylesheets="@../css/main.css" text="%btnAgregarDireccion.text" textFill="WHITE">
                <graphic>
                   <FontAwesomeIconView fill="WHITE" glyphName="PLUS" size="15" />
                </graphic>
@@ -42,11 +42,11 @@
          <content>
           <TableView fx:id="tableView" editable="true" prefHeight="278.0" prefWidth="1110.0" stylesheets="@../css/main.css">
               <columns>
-                  <TableColumn fx:id="columnaId" editable="false" prefWidth="62.0" resizable="false" text="ID" />
-                  <TableColumn fx:id="columnaNombre" onEditCommit="#actualizar" prefWidth="255.0" resizable="false" text="Nombre" />
-                  <TableColumn fx:id="columnaEmail" onEditCommit="#actualizar" prefWidth="393.0" resizable="false" text="Email" />
-                  <TableColumn fx:id="columnaTelefono" onEditCommit="#actualizar" prefWidth="249.0" resizable="false" text="Telefono" />
-                  <TableColumn fx:id="columnaEstatus" onEditCommit="#actualizar" prefWidth="150.0" resizable="false" text="Estatus" />
+                  <TableColumn fx:id="columnaId" editable="false" prefWidth="62.0" resizable="false" text="%columnaId.text" />
+                  <TableColumn fx:id="columnaNombre" onEditCommit="#actualizar" prefWidth="255.0" resizable="false" text="%columnaNombre.text" />
+                  <TableColumn fx:id="columnaEmail" onEditCommit="#actualizar" prefWidth="393.0" resizable="false" text="%columnaEmail.text" />
+                  <TableColumn fx:id="columnaTelefono" onEditCommit="#actualizar" prefWidth="249.0" resizable="false" text="%columnaTelefono.text" />
+                  <TableColumn fx:id="columnaEstatus" onEditCommit="#actualizar" prefWidth="150.0" resizable="false" text="%columnaEstatus.text" />
               </columns>
               <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

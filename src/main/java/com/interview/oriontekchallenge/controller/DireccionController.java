@@ -1,5 +1,7 @@
 package com.interview.oriontekchallenge.controller;
 
+import com.interview.oriontekchallenge.Main;
+import com.interview.oriontekchallenge.Resources;
 import com.interview.oriontekchallenge.beans.RadioButtonCell;
 import com.interview.oriontekchallenge.model.Direccion;
 import com.interview.oriontekchallenge.model.Estatus;
@@ -22,7 +24,12 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class DireccionController {
-    private static final DireccionService service_ = new DireccionService();
+    private static DireccionService service_;
+
+    public DireccionController() {
+        service_ = new DireccionService(Main.getDaoImplBundle());
+    }
+
     private final ObservableList<String> data = FXCollections.observableArrayList();
     @FXML
     private URL location;
@@ -66,6 +73,8 @@ public class DireccionController {
 
     @FXML
     private void initialize() {
+        resources = ResourceBundle.getBundle(Main.class.getPackageName()
+                + ".bundle." + Resources.DIRECCION.getBundlePath());
         llenarPaises();
         initTabla();
         tableView.setItems(FXCollections.observableArrayList(service_.mostrar()));

@@ -11,6 +11,7 @@ import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 
 import java.util.Objects;
+import java.util.ResourceBundle;
 
 import static javafx.application.Platform.exit;
 
@@ -18,6 +19,7 @@ public class Main extends Application {
     public static Parent rootNode;
     private double xOffset;
     private double yOffset;
+    private ResourceBundle resources;
 
     public static void main(String[] args) {
         launch();
@@ -25,7 +27,12 @@ public class Main extends Application {
 
     @Override
     public void init() throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(Main.class.getResource("fxml/main.fxml")));
+        resources = ResourceBundle.getBundle(
+                Main.class.getPackageName()+ ".bundle."
+                        + Resources.MAIN.getBundlePath());
+        FXMLLoader fxmlLoader = new FXMLLoader(Objects.requireNonNull(
+                Main.class.getResource("fxml/"+ Resources.MAIN.getFxmlPath())),
+                resources);
         rootNode = fxmlLoader.load();
         rootNode.setOnMousePressed(event -> {
             xOffset = event.getSceneX();
@@ -33,9 +40,17 @@ public class Main extends Application {
         });
     }
 
+    public static ResourceBundle getDaoImplBundle(){
+        return ResourceBundle.getBundle(
+                Main.class.getPackageName()+ ".bundle.daoimpl.DaoImpl");
+    }
+
     @Override
     public void start(Stage stage) {
-        stage.getIcons().add(new Image(Objects.requireNonNull(Main.class.getResource("img/square-font-awesome.svg")).toString(), true));
+        stage.getIcons().add(new Image(Objects.requireNonNull(
+                Main.class.getResource("img/square-font-awesome.svg"))
+                .toString(),
+                true));
         stage.setOnCloseRequest((WindowEvent e) ->
                 exit()
         );
@@ -46,7 +61,7 @@ public class Main extends Application {
 
         Scene scene = new Scene(rootNode);
         stage.setScene(scene);
-        stage.setTitle("Oriontek Challenge");
+        stage.setTitle(resources.getString("stage.title"));
         stage.initStyle(StageStyle.UNDECORATED);
         stage.show();
 

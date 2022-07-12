@@ -5,12 +5,13 @@ import com.interview.oriontekchallenge.daoimpl.ClienteDaoImpl;
 import com.interview.oriontekchallenge.model.Cliente;
 
 import java.util.List;
+import java.util.ResourceBundle;
 
 public class ClienteService {
     private final ClienteDao dao_;
 
-    public ClienteService(){
-        dao_ = new ClienteDaoImpl();
+    public ClienteService(ResourceBundle resourceBundle){
+        dao_ = new ClienteDaoImpl(resourceBundle);
     }
 
     public ClienteService(ClienteDao dao){

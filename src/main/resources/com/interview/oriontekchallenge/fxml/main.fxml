@@ -19,7 +19,7 @@
                   <Pane id="dashboard-header" prefHeight="96.0" prefWidth="255.0" stylesheets="@../css/main.css">
                      <children>
                         <FontAwesomeIconView fill="WHITE" glyphName="XING" layoutX="44.0" layoutY="58.0" size="35" />
-                        <Label layoutX="78.0" layoutY="31.0" text="Dashboard" textFill="WHITE">
+                        <Label layoutX="78.0" layoutY="31.0" text="%dashboard-header.label.text" textFill="WHITE">
                            <font>
                               <Font size="24.0" />
                            </font>
@@ -28,7 +28,7 @@
                   </Pane>
                </children>
             </Pane>
-            <Button fx:id="btnClientes" alignment="BASELINE_LEFT" graphicTextGap="15.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="47.0" prefWidth="258.0" stylesheets="@../css/main.css" text="Clientes" textFill="WHITE">
+            <Button fx:id="btnClientes" alignment="BASELINE_LEFT" graphicTextGap="15.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="47.0" prefWidth="258.0" stylesheets="@../css/main.css" text="%btnClientes.text" textFill="WHITE">
                <padding>
                   <Insets left="50.0" />
                </padding>
@@ -36,7 +36,7 @@
                   <FontAwesomeIconView fill="WHITE" glyphName="USER" size="15" />
                </graphic>
             </Button>
-            <Button fx:id="btnDirecciones" alignment="BASELINE_LEFT" graphicTextGap="15.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="47.0" prefWidth="258.0" stylesheets="@../css/main.css" text="Direcciones" textFill="WHITE">
+            <Button fx:id="btnDirecciones" alignment="BASELINE_LEFT" graphicTextGap="15.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="47.0" prefWidth="258.0" stylesheets="@../css/main.css" text="%btnDirecciones.text" textFill="WHITE">
                <padding>
                   <Insets left="50.0" />
                </padding>
@@ -49,12 +49,12 @@
       </StackPane>
       <Pane id="panel-status" fx:id="pnlStatus" layoutX="255.0" layoutY="77.0" prefHeight="110.0" prefWidth="1111.0" stylesheets="@../css/main.css" AnchorPane.leftAnchor="255.0" AnchorPane.rightAnchor="0.0">
          <children>
-            <Label fx:id="lblStatus" layoutX="14.0" layoutY="52.0" text="Clientes" textFill="WHITE">
+            <Label fx:id="lblStatus" layoutX="14.0" layoutY="52.0" textFill="WHITE">
                <font>
                   <Font size="24.0" />
                </font>
             </Label>
-            <Label fx:id="lblStatusMini" layoutX="20.0" layoutY="28.0" text="/home/clientes" textFill="WHITE">
+            <Label fx:id="lblStatusMini" layoutX="20.0" layoutY="28.0" textFill="WHITE">
                <font>
                   <Font size="12.0" />
                </font>
@@ -62,7 +62,7 @@
          </children>
       </Pane>
       <FontAwesomeIconView fill="#868383" glyphName="CLOSE" layoutX="1346.0" layoutY="20.0" onMouseClicked="#handleClose" size="20" />
-      <Label layoutX="276.0" layoutY="41.0" text="Manage your company with simplicity">
+      <Label layoutX="276.0" layoutY="41.0" text="%root.label.text">
          <font>
             <Font size="11.0" />
          </font>
