@@ -26,16 +26,6 @@ public class Direccion {
         setPais(pais);
     }
 
-    public Cliente getCliente_() {
-        return cliente_;
-    }
-
-    // Para insertar.
-
-    public void setCliente_(Cliente cliente_) {
-        this.cliente_ = cliente_;
-    }
-
     public int getClienteId(){
         return cliente_.getId();
     }
