@@ -118,7 +118,6 @@ public class DireccionDaoImpl implements DireccionDao {
         return data;
     }
 
-    // TODO: crear función direccion_cliente_mostrar(?Cliente cliente)
     @Override
     public List<Direccion> mostrar(Cliente cliente) {
         List<Direccion> data = new ArrayList<>();
