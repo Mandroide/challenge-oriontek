@@ -5,12 +5,8 @@ module com.interview.oriontekchallenge {
     requires de.jensd.fx.glyphs.fontawesome;
 
 
-    opens com.interview.oriontekchallenge to javafx.fxml;
-    exports com.interview.oriontekchallenge;
-    exports com.interview.oriontekchallenge.model;
-    exports com.interview.oriontekchallenge.controller;
-    exports com.interview.oriontekchallenge.dao;
+    exports com.interview.oriontekchallenge to javafx.graphics;
+    exports com.interview.oriontekchallenge.controller to javafx.fxml;
     opens com.interview.oriontekchallenge.controller to javafx.fxml;
-    exports com.interview.oriontekchallenge.service;
-    opens com.interview.oriontekchallenge.service to javafx.fxml;
+    opens com.interview.oriontekchallenge.model to javafx.base;
 }
